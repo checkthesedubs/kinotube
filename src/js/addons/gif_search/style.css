@@ -1,0 +1,115 @@
+.tenor-embed, .tenor-embed img {
+	margin: 0;
+	width: 100%;
+	border-radius: 12px;
+	cursor: pointer;
+}
+
+.tenor-column {
+	flex: 1;
+}
+
+.tenor-container {
+	height: 450px;
+	overflow-y: scroll;
+	width: 100%;
+	padding: 6px;
+	box-sizing: border-box;
+	background: rgba(0, 0, 0, 0.13);
+	display: flex;
+	margin-top: 10px;
+}
+
+.tenor-wrap {
+	position: relative;
+	padding: 3px;
+}
+
+.tenor-wrap:hover .gif-btn,
+.tenor-chat-embed:hover .gif-btn {
+	display: block;
+}
+
+.gif-btn {
+	position: absolute;
+	top: 0;
+	width: 28px;
+	height: 28px;
+	text-align: center;
+	display: none;
+}
+
+.gif-btn.fav-btn {
+	right: 0;
+}
+
+.gif-btn.repost-btn {
+	left: 0;
+}
+
+.fav-btn.fav-btn-add {
+	cursor: copy;
+}
+
+.gif-btn i {
+	line-height: 28px;
+	font-size: 28px;
+	transition: color .16s;
+}
+
+.tenor-chat-embed .gif-btn {
+	width: 20px;
+	height: 20px;
+}
+
+.tenor-chat-embed .gif-btn i {
+	line-height: 20px;
+	font-size: 20px;
+}
+
+.repost-btn i {
+	color: #ffd46e;
+	text-shadow: 0 0 5px black;
+}
+
+.fav-btn-add i {
+	color: #ffd46e;
+	text-shadow: 0 0 5px black;
+}
+
+.fav-btn-add i:hover, .repost-btn i:hover {
+	color: #00ffcf !important;
+}
+
+.fav-btn-add i:hover:before {
+	content: "\f005" !important;
+	/* full star */
+}
+
+.fav-btn-del i {
+	color: #d22121;
+	text-shadow: 0 0 3px #ec8c8c;
+}
+
+.fav-btn-del i:hover {
+	color: #f00 !important;
+	text-shadow: 0 0 3px #fff !important;
+}
+
+.fav-btn-del i:hover:before {
+	content: "\f1f8" !important;
+	/* full trash */
+}
+
+
+.tenor-chat-embed {
+	display: inline-block;
+	position: relative;
+}
+
+.tenor-chat-embed {
+	&, & video, & img {
+		max-width: 250px;
+		max-height: 96px;
+	}
+}

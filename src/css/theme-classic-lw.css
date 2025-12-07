@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+body {
+	background-color: #0e1015;
+	font-size: 1.5em;
+}
+
+body,
+.navbar .navbar-brand,
+#chatwrap {
+	font-family: "Quicksand";
+}
+
+code {
+	padding: 2px 10px;
+	font-size: 90%;
+	color: #fd2d2d;
+	background-color: #201e29;
+	border-radius: 4px;
+}
+
+.btn-default {
+	color: #c6d4e2;
+	background-color: #040406;
+	border-color: #17191e;
+	background-image: none !important;
+}
+
+.btn-primary {
+	background: #1f1c21 !important;
+}
+
+.btn-default.disabled,
+.btn-default.disabled.active,
+.btn-default.disabled.focus,
+.btn-default.disabled:active,
+.btn-default.disabled:focus,
+.btn-default.disabled:hover,
+.btn-default[disabled],
+.btn-default[disabled].active,
+.btn-default[disabled].focus,
+.btn-default[disabled]:active,
+.btn-default[disabled]:focus,
+.btn-default[disabled]:hover,
+fieldset[disabled] .btn-default,
+fieldset[disabled] .btn-default.active,
+fieldset[disabled] .btn-default.focus,
+fieldset[disabled] .btn-default:active,
+fieldset[disabled] .btn-default:focus,
+fieldset[disabled] .btn-default:hover {
+	background-color: #13151a;
+}
+
+.btn-default.active,
+.btn-default.focus,
+.btn-default:active,
+.btn-default:focus,
+.btn-default:hover,
+.open>.dropdown-toggle.btn-default {
+	color: #fff;
+	background-color: #000000;
+	border-color: #1e2023;
+}
+
+#currenttitle {
+	color: #a1b6c9;
+}
+
+.navbar .navbar-nav>li>a {
+	color: #bad2e7;
+}
+
+.navbar .navbar-brand {
+	color: #cee8ff;
+	text-transform: uppercase;
+}
+
+#mainpage {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+	background-image: none !important;
+	background: #07080a;
+}
+
+body,
+#chatwrap {
+	color: #adb0c3;
+}
+
+.chat-msg {
+	font-weight: 700;
+}
+
+#chatheader {
+	color: #afc5d9;
+}
+
+#chat-footer {
+	color: #cee8ff;
+}
+
+#wrap {
+	background-position-x: 50%;
+	background-position-y: 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#userlist,
+#messagebuffer,
+#chat-footer,
+#chatheader {
+	background: #0e1015;
+}
+
+#chat-footer {
+	border-top: 1px #1b2023 solid;
+}
+
+#chatheader {
+	border-bottom: 1px #1B1F27 solid;
+}
+
+.btn-chat {
+	border: 0px solid rgb(12, 12, 12);
+	background: #17191E;
+	color: #cee8ff;
+}
+
+.nick-hover {
+	background-color: #181A23;
+}
+
+.nick-highlight {
+	background-color: #291318;
+}
+
+#chatline {
+	background-color: #1C1E23 !important;
+}
+
+.navbar-nav>li>a {
+	font-size: 10px;
+	font-weight: 400;
+}
+
+.navbar-size-tiny .navbar .visible-md #loginform,
+.navbar-nav>li>a {
+	text-transform: uppercase;
+}
+
+.timestamp {
+	color: #212328;
+}
+
+.well {
+	border: 0px solid #0c0d0e;
+	font-weight: 700;
+}
+
+.section,
+#controlsrow,
+.well {
+	background: #0e1015;
+}
+
+.alert-info {
+	background-color: #151b24;
+	border-color: #3d9ed8;
+	color: #fff;
+}
+
+.modal-content {
+	background: #0e1015;
+}
+
+.close {
+	font-size: 24px;
+	color: #fff;
+	opacity: 1;
+	cursor: pointer;
+}
+
+.close:focus,
+.close:hover {
+	color: #808080;
+}
+
+table {
+	background-color: #0B0C10;
+}
+
+.form-control {
+	border: 0px solid #ccc;
+	height: 35px;
+	background: #0a0a0a;
+	color: #c1d0e0;
+	border-radius: 5px;
+}
+
+input.form-control[type="text"],
+input.form-control[type="password"],
+input.form-control[type="email"],
+textarea.form-control {
+	color: #8b93a7;
+	background: #1C1E23 !important;
+}
+
+input[type="checkbox"] {
+	border: 1px solid #4f4f4f;
+	background: #1D1E23;
+}
+
+.checkbox {
+	color: #8f8f8f;
+}
+
+.pagination>li.disabled>a,
+.pagination>li.disabled>a:hover,
+.pagination>li.disabled>span,
+.pagination>li.disabled>span:hover {
+	background-color: #0E1015;
+}
+
+.nav-tabs li a {
+	color: #fff;
+	font-weight: 700;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+	color: #fff;
+	background-color: black;
+	border: 1px solid #1c1e22;
+	border-bottom-color: transparent;
+	cursor: default;
+}
+
+.nav>li>a:focus,
+.nav>li>a:hover {
+	text-decoration: none;
+	background-color: black;
+}
+
+.pagination>li>a,
+.pagination>li>span {
+	background-color: #0F1115;
+	border: 1px solid #020303;
+	background-image: none !important;
+}
+
+:hover::-webkit-scrollbar {
+	background: #191919;
+}
+
+:hover::-webkit-scrollbar-thumb {
+	background: linear-gradient(to bottom, #a5045a, #ea6465);
+}
+
+::-webkit-scrollbar {
+	width: 7px;
+	background: transparent;
+}
+
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: transparent;
+}

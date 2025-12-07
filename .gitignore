@@ -1,0 +1,10 @@
+.git/
+build/
+unused/
+
+*.7z
+*.code-workspace
+issues.txt
+
+_/
+node_modules/

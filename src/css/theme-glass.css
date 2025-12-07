@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Michroma&display=swap');
+
+.navbar {
+	font-family: 'Michroma';
+	text-transform: lowercase;
+	font-weight: 100;
+	font-size: 1rem;
+	box-shadow: inset 0 3px 3px #ffffff24;
+	background-image: -webkit-linear-gradient(#5269b0bd 5%, #011348c9 50%, #00000082 51%, #000000cf 90%) !important;
+	background-image: linear-gradient(#5269b0bd 5%, #011348c9 50%, #00000082 51%, #000000cf 90%) !important;
+	background: transparent;
+	backdrop-filter: saturate(100%) blur(8px);
+	background-color: #0000ff8c;
+}
+
+.navbar>li>a {
+	color: #c6f4ff;
+	text-shadow: 0 0 2px #000000e8;
+}
+
+.container-fluid {
+	box-shadow: inset 0 0 20px black;
+}
+
+#mainpage {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+#chatheader {
+	border-bottom: 1px #005ace solid;
+}
+
+#chatheader,
+#chat-footer,
+#messagebuffer,
+.modal-content,
+.well {
+	background: #02316fab;
+	box-shadow: inset 0 0 6px #ffffff2e, inset 0 0 2px #ffffff4f;
+	backdrop-filter: saturate(200%) blur(10px);
+	font-family: "Instrument Sans", sans-serif;
+	border-color: #142433;
+}
+
+.modal-content,
+.well {
+	box-shadow: inset 0 0 6px #ffffff2e, inset 0 0 2px #ffffff4f, 0 0 4px black;
+}
+
+#messagebuffer,
+.well {
+	background: #000b1aeb;
+}
+
+.server-msg-reconnect {
+	border: 1px solid #0f7301a3;
+	color: #62fd62;
+	background-image: linear-gradient(#07f2075c, #114a094f 50%, #0c440c1c 80%);
+	background-color: transparent;
+	border-radius: 6px;
+	box-shadow: inset 0 3px 4px #ffffff40, inset 0 1px 1px #0b8800;
+	text-shadow: 0 0 1px #00ff00e0;
+}
+
+.server-msg-disconnect {
+	border: 1px solid #730101a3;
+	color: #ff4a4a;
+	background-image: linear-gradient(#f207075c, #4a09094f 50%, #440c0c1c 80%);
+	background-color: transparent;
+	border-radius: 6px;
+	box-shadow: inset 0 3px 4px #ffffff40, inset 0 1px 1px #800;
+	text-shadow: 0 0 1px #ff0000e0;
+}
+
+input.form-control[type="text"],
+input.form-control[type="password"],
+input.form-control[type="email"],
+textarea.form-control {
+	background-color: #02122bb2 !important;
+	box-shadow: inset 0 0 3px #000c, 0 0 1px #acb6eca3;
+	border: 0;
+}
+
+.nick-highlight {
+	background-color: #ff57572b;
+}
+
+.nick-hover {
+	background: #4a4a9142;
+}
+
+.btn,
+.btn-default {
+	background-repeat: no-repeat;
+	border: 0;
+	/*1px solid #1724284f!important;*/
+	background-color: transparent;
+	border-radius: 7px;
+	box-shadow: inset 0 2px 2px #ffffff7a, inset 0 0 1px #fff3;
+}
+
+.btn-danger,
+.btn-danger:hover,
+.btn-danger:active {
+	background-image: linear-gradient(#df0000f2, #6f0101db 30%, #d700008a 80%);
+}
+
+.btn-danger:hover,
+.btn-danger:active {
+	background-color: red;
+}
+
+.btn-success,
+.btn-success:hover,
+.btn-success:active {
+	background-image: linear-gradient(#be00cef2, #7b0abbdb 30%, #e300cb8a 80%);
+}
+
+.btn-success:hover,
+.btn-success:active {
+	background-color: rgb(140, 0, 255);
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active {
+	background-image: linear-gradient(#0379e1f2, #01036fdb 30%, #0003d78a 80%);
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+	background-color: blue;
+}
+
+.btn-default,
+.btn-default:hover,
+.btn-default:active {
+	background-image: linear-gradient(#00bf0cf2, #046f01db 30%, #00d72c8a 80%);
+}
+
+.btn-default:hover,
+.btn-default:active {
+	background-color: #0f0;
+}
+
+.btn-warning,
+.btn-warning:hover,
+.btn-warning:active {
+	background-image: linear-gradient(#ffcb00f2, #6f4901db 30%, #ffa9058a 80%);
+}
+
+.btn-warning:hover,
+.btn-warning:active {
+	background-color: rgb(231, 177, 0);
+}
+
+.btn-info,
+.btn-info:hover,
+.btn-info:active {
+	background-image: linear-gradient(#05abecf2, #014b6fdb 30%, #00afd78a 80%);
+}
+
+.btn-info:hover,
+.btn-info:active {
+	background-color: rgb(27, 228, 255);
+}
+
+#newmessages-indicator-bghack {
+	background: rgba(0, 2, 149, 0.77);
+	border-bottom: 1px solid #0058ffba;
+}
+
+#messagebuffer a,
+#motdwrap a {
+	color: blue;
+}
+
+#messagebuffer a:visited,
+#motdwrap a:visited {
+	color: purple;
+}
+
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+	color: #fff;
+	background-color: transparent;
+	border: 1px solid #112853cc;
+	border-bottom-color: transparent;
+	background-image: linear-gradient(#4b97e8, #3092fb8c 20%, #02316f33 80%);
+	background-repeat: no-repeat;
+	border-radius: 8px 8px 0 0;
+	box-shadow: inset 0 1px 1px #ffffff75;
+}
+
+.nav-tabs {
+	border-bottom: 1px solid #44597882;
+}
+
+.modal-footer {
+	border-top: 1px solid #44597882;
+}
+
+.timestamp {
+	color: #8383ff59;
+}
+
+#currenttitle {
+	color: #6090c4;
+	text-shadow: 0 0 6px #ffffff24;
+}
+
+#chatheader {
+	color: #82c9f4;
+}
+
+#userlist {
+	background: rgba(9, 31, 64, 0.7);
+}
+
+.emotelist-table {
+	border-radius: 4px;
+	background-color: #030e1a4f;
+}
+
+.user-dropdown,
+.emotelist-table td {
+	background-color: #020b1770;
+	border-radius: 4px;
+}
+
+.profile-box {
+	background-color: #091f40eb;
+	border-radius: 4px;
+}
+
+.poll-notify {
+	border: 1px solid #ff6c00a3;
+	color: #ffa700;
+	background-image: linear-gradient(#ff78005c, #9b3d0f4f 50%, #75380b1c 80%);
+	background-color: #ff6c000f;
+	border-radius: 6px;
+	box-shadow: inset 0 3px 4px #ffffff40, inset 0 1px 1px #d07a0c;
+	text-shadow: 0 0 2px #ff5400e0;
+}
+
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:focus,
+.navbar-inverse .navbar-nav>.active>a:hover,
+.navbar-inverse .navbar-nav>li>a:focus,
+.navbar-inverse .navbar-nav>li>a:hover {
+	background-image: linear-gradient(#8598ff63, #fff0);
+	background-blend-mode: multiply;
+	background-color: transparent;
+}
+
+.modal-header>h4 {
+	font-family: 'Michroma';
+	text-transform: lowercase;
+}
+
+.navbar .navbar-brand,
+.modal-header>h4 {
+	color: #6c91ff;
+	text-shadow: 0 0 6px #ffffff2e, 0 0 2px #ffffff4f;
+}
+
+.navbar-inverse .navbar-nav>li>a,
+.navbar-inverse .navbar-text {
+	color: #6b9eff;
+}
+
+.nav>li>a:focus,
+.nav>li>a:hover {
+	background-color: #4563db85;
+}
+
+.pagination>li>a,
+.pagination>li>span,
+.pagination>li.disabled>a,
+.pagination>li.disabled>a:hover,
+.pagination>li.disabled>span,
+.pagination>li.disabled>span:hover {
+	background-repeat: no-repeat;
+	background-color: transparent;
+	box-shadow: inset 0 3px 2px #ffffff7a, inset 0 0 1px #fff3;
+	background-image: linear-gradient(#46ccadd9, #05606080 30%, #00d7c359 80%);
+}
+
+.pagination>li.disabled>a,
+.pagination>li.disabled>a:hover,
+.pagination>li.disabled>span,
+.pagination>li.disabled>span:hover {
+	background-image: linear-gradient(#2f8672d9, #03393980 30%, #00736859 80%)
+}
+
+.pagination>li.active>a,
+.pagination>li.active>span,
+.pagination>li>a:hover,
+.pagination>li>span:hover {
+	background-image: linear-gradient(#3bffd2d9, #0adfdf80 30%, #02ffe859 80%);
+}

@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+
+body {
+	color: #a6a6a6;
+  accent-color: #9b0e0e;
+	font-family: "Instrument Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.navbar-inverse {
+  /*background-image: -webkit-linear-gradient(black 50%, #0f0f0f) !important;
+  background-image: linear-gradient(black 50%, #0f0f0f) !important;
+  background: #0f0f0f;*/
+  background: black;
+  /*background-image: none !important;*/
+  background-image: linear-gradient(#060606 5%,#131313 25%,#202020 49%,#262626 50%,#000 51%,#0b0b0b 90%, black) !important;
+}
+
+#chatheader {
+  border-bottom: 1px black solid;
+  background: black;
+  color: #9b0e0e;
+  background-image: linear-gradient(black 20%, #0f0f0f) !important;
+}
+
+.timestamp {
+  color: #9b0e0e9e;
+}
+
+#currenttitle {
+  color: #a6a6a6;
+}
+
+#messagebuffer {
+  background: #060606f2;
+}
+
+#userlist {
+  background: #0f0101f2;
+}
+
+#chat-footer {
+  border-top: 1px #000 solid;
+  background: #0f0f0f;
+  background-image: linear-gradient(to bottom, #0f0f0f 50%, black);
+}
+
+input.form-control[type="text"], input.form-control[type="password"], input.form-control[type="email"], textarea.form-control {
+  background-color: #060606 !important;
+  box-shadow: 0 0 4px black inset;
+  border-color: black;
+}
+
+.btn {
+  border-radius: 4px;
+  border: 1px solid black;
+  color: #b9b9b9;
+  background-color: transparent!important;
+}
+
+.btn-default {
+  background-image: linear-gradient(#3c3c3c,#1a1a1a 60%,#2d2d2d);
+}
+
+.btn-primary {
+  background-image: linear-gradient(#2f2f2f,#0f0f0f 60%,#600303);
+}
+
+.btn-primary:hover {
+  background-image: linear-gradient(#5e0505, #240505 60%,#900a0a);
+}
+
+.btn-info {
+  background-image: linear-gradient(#104384,#020c20 60%,#061653);
+}
+
+.btn-danger {
+  background-image: linear-gradient(#991717,#1a0202 60%,#390404);
+  color: #ff8181;
+}
+
+.btn-warning {
+  background-image: linear-gradient(#bd781e,#1a1202 60%,#552c09);
+}
+
+.btn-success {
+  background-image: linear-gradient(#359910,#061a02 60%,#0f5509);
+}
+
+.btn-chat:focus, .btn-chat:active, .btn-default:focus, .btn-default:active {
+  border-color: black;
+  color: #b9b9b9;
+}
+
+.btn-chat, .btn-chat:hover {
+  margin: 0;
+  border-radius: 0;
+  border-right-width: 0;
+}
+
+.btn-default:hover, .btn-chat:hover {
+  color: #9b0e0e;
+  background-image: linear-gradient(#000,#131313 40%,#350000);
+  border-color: black;
+}
+
+/*afk: alternate red color
+border: 1px solid transparent;
+background: linear-gradient(black, #2d0202) padding-box, linear-gradient(to right, black, #620202) border-box;
+
+color: #a10000;
+*/
+
+#afktoggle, #afktoggle.active {
+  /*border: 1px solid transparent;
+  background: linear-gradient(black, #0e2466) padding-box, linear-gradient(to right, black, #0f2ea8) border-box;*/
+  background: linear-gradient(black, #2d0202) padding-box, linear-gradient(to right, black, #620202) border-box;
+}
+
+#afktoggle:hover, #afktoggle.active:hover {
+	background: linear-gradient(black, #620505) padding-box, linear-gradient(to right, black, #9f0101) border-box;
+	color: red;
+}
+
+#afktoggle.active {
+  border: 1px solid transparent;
+  color: #9b0e0e;
+}
+
+.navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-text {
+  color: #9b0e0e;
+  text-transform: lowercase;
+}
+
+.btn-chat:first-child, .btn-chat:first-child:hover {
+  border-radius: 4px 0 0 4px!important;
+}
+
+.btn-chat:last-child, .btn-chat:last-child:hover {
+  border-radius: 0 4px 4px 0!important;
+  border-right-width: 1px!important;
+}
+
+/*#chatheader,
+#chat-footer,*/
+#messagebuffer,
+.modal-content,
+.well {
+	backdrop-filter: saturate(0%) blur(8px);
+}
+
+.well {
+  background-color: #0b0b0bbd;
+  border: 1px solid black;
+}
+
+.close {
+  color: #9f9f9f;
+  text-shadow: 0 0px 2px #000;
+  opacity: 1;
+}
+
+.close:focus, .close:hover {
+  color: #9b0e0e;
+}
+
+#chat-buttons-inline {
+  padding: 4px 4px;
+}
+
+.navbar-inverse .navbar-brand {
+  color: #9b0e0e;
+  font-family: "Harakiri", serif;
+  font-size: 4rem;
+  letter-spacing: 2px;
+}
+
+.navbar-size-tiny .navbar-inverse .navbar-brand {
+  font-size: 2.2rem;
+}
+
+.modal-content {
+  background-color: #0f0f0feb;
+  border: 1px solid rgba(0, 0, 0, 0.64);
+}
+
+.modal-content h4 {
+  color: #9b0e0e;
+}
+
+.modal-footer {
+  border-top: 1px solid #000;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #000;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+  background-repeat: no-repeat;
+  color: #eee;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-bottom: 1px solid #bbb;
+  background-image: linear-gradient(transparent, #600 90%, #d03131);
+}
+
+.nav-tabs > li > a:hover {
+  border-color: #000;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover {
+  background-image: linear-gradient(#020202,#1c00008a 40%,#73000059);
+  background-color: transparent;
+}
+
+.nick-hover {
+  background-color: #2f2f2f70;
+}
+
+.form-control {
+  color: #9f9f9f;
+  background-color: #2d2d2d;
+  background-image: none;
+  border: 1px solid #4d4d4d;
+}
+
+.emotelist-table {
+	border-radius: 4px;
+	background-color: #000000ad;
+}
+
+.user-dropdown,
+.emotelist-table td {
+	background-color: #ffffff08;
+	border-radius: 4px;
+}
+
+.pagination>li>a,
+.pagination>li>span,
+.pagination>li.disabled>a,
+.pagination>li.disabled>a:hover,
+.pagination>li.disabled>span,
+.pagination>li.disabled>span:hover {
+  background-color: transparent;
+  background-image: linear-gradient(#b20c0cd9,#220202b2 30%,#510000b8 80%);
+  background-repeat: no-repeat;
+  box-shadow: inset 0 3px 2px #ffffff3d,inset 0 0 1px #d0101061;
+  color: #ffa8a8;
+}
+
+.pagination>li.disabled>a,
+.pagination>li.disabled>a:hover,
+.pagination>li.disabled>span,
+.pagination>li.disabled>span:hover {
+  background-image: none;
+  color: #484848;
+  box-shadow: none;
+  background: #170b0b;
+}
+
+.pagination>li.active>a,
+.pagination>li.active>span,
+.pagination>li>a:hover,
+.pagination>li>span:hover {
+  background-image: linear-gradient(#aaaaaad9,#373737bf 30%,#c8c8c859 80%);
+  color: white;
+  text-shadow: none;
+  box-shadow: 0 0 2px #ffffff5e inset;
+}
+
+.userlist_item:hover {
+  background: #280000;
+}
+
+.profile-box {
+  border-color: #9b0e0e;
+  background: #131313e5;
+}
+
+.nick-highlight {
+  background-color: #390000;
+}
