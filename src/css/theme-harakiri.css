@@ -110,18 +110,18 @@ background: linear-gradient(black, #2d0202) padding-box, linear-gradient(to righ
 color: #a10000;
 */
 
-#afktoggle, #afktoggle.active {
+#afktoggle, #afktoggle.afkactive {
   /*border: 1px solid transparent;
   background: linear-gradient(black, #0e2466) padding-box, linear-gradient(to right, black, #0f2ea8) border-box;*/
   background: linear-gradient(black, #2d0202) padding-box, linear-gradient(to right, black, #620202) border-box;
 }
 
-#afktoggle:hover, #afktoggle.active:hover {
+#afktoggle:hover, #afktoggle.afkactive:hover {
 	background: linear-gradient(black, #620505) padding-box, linear-gradient(to right, black, #9f0101) border-box;
 	color: red;
 }
 
-#afktoggle.active {
+#afktoggle.afkactive {
   border: 1px solid transparent;
   color: #9b0e0e;
 }
@@ -164,7 +164,7 @@ color: #a10000;
 }
 
 #chat-buttons-inline {
-  padding: 4px 4px;
+  padding: 4px;
 }
 
 .navbar-inverse .navbar-brand {

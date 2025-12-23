@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap');
+
+body {
+	font-family: "Instrument Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.navbar {
+	background: none;
+	background-image: linear-gradient(#000000a6 2%, #00000047 60%, #000000c4),url('https://checkthesedubs.github.io/img/christmas_panel_bg.jpg') !important;
+}
+
+.navbar .navbar-brand {
+  font-family: "Great Vibes";
+  color: red;
+}
+
+.navbar::before {
+  background-image: url('https://checkthesedubs.github.io/img/christmas_lights.png');
+  content: "";
+  width: 100%;
+  height: 23px;
+  position: absolute;
+  top: -5px;
+  z-index: 33;
+  pointer-events: none;
+  background-repeat: repeat-x;
+}
+
+.navbar-size-tiny .navbar::before {
+  top: -9px;
+}
+
+.navbar .navbar-nav > li > a {
+  color: #b98d72;
+  text-shadow: 0 0 3px #0d0503ed;
+  font-family: "Times New Roman", serif;
+}
+
+.navbar .navbar-nav > li > a:hover, .navbar .navbar-nav > li > a:focus {
+  background-color: transparent !important;
+  background-image: linear-gradient(transparent, #ffffffa1 80%, white);
+  color: white !important;
+  text-shadow: 0 0 3px black;
+}
+
+#chatwrap::before {
+  content: "";
+  background-image: url('https://checkthesedubs.github.io/img/snow.gif');
+  height: 100%;
+  margin-top: var(--chatheaderheight);
+  -webkit-mask: linear-gradient(#b0b0b0,#202020 10%,#171717 60%,#393939 80%,#000 92%);
+  mask: linear-gradient(#b0b0b0,#202020 10%,#171717 60%,#393939 80%,#000 92%);
+  mask-mode: luminance;
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.nick-highlight {
+  background-color: #ff77772b;
+}
+
+#chatheader {
+  background-image: linear-gradient(#000 4%,#0000004d 18%),url('https://checkthesedubs.github.io/img/christmas_panel_bg.jpg');
+  border-bottom: 1px solid #31180f85;
+  text-shadow: 0 0 2px black, 0 0 4px black;
+  color: #d71414;
+}
+
+#currenttitle {
+  color: #40bb1e;
+}
+
+#messagebuffer {
+  backdrop-filter: blur(10px);
+}
+
+#userlist, #messagebuffer {
+  background: none;
+  background-image: linear-gradient(#000000f7 12%,#08090fe8 80%,#0c0d15e8);
+}
+
+#chat-footer {
+  border-top: 1px solid #ff93454f;
+  background-image: linear-gradient(transparent 30%,#0006), url('https://checkthesedubs.github.io/img/christmas_panel_bg.jpg');
+}
+
+#chatline {
+  background-color: #110805a1 !important;
+  box-shadow: 0 0 3px #220f08d9,inset 1px 2px 3px #110803e5;
+  color: #f9f9f9;
+}
+
+#chat-buttons-inline {
+  padding: 4px 1px;
+}
+
+.btn {
+  border-radius: 3px;
+  border: 1px solid #0006!important;
+  border-top: 0!important;
+  border-left: 0!important;
+  color: #ecceb9c7;
+  background-color: transparent!important;
+  background-image: url('https://checkthesedubs.github.io/img/christmas_btn.jpg') !important;
+  background-repeat: repeat;
+  background-position: 0 0;
+  box-shadow: 1px 1px 2px #000000a1;
+  text-shadow: 0 0 3px #0d0503ed;
+}
+
+.btn-chat:focus, .btn-chat:active, .btn-default:focus, .btn-default:active {
+  border-color: black!important;
+  color: #0ad1ff;
+  text-shadow: 1px 1px 1px #2e73bd;
+}
+
+.btn-default:hover, .btn-chat:hover {
+  color: #0ad1ff;
+  text-shadow: 1px 1px 1px #174b84;
+}
+
+/*.btn-chat, .btn-chat:hover {
+  margin: 0;
+  border-radius: 0;
+  border-right-width: 0;
+}
+
+.btn-chat:first-child, .btn-chat:first-child:hover {
+  border-radius: 4px 0 0 4px!important;
+}
+
+.btn-chat:last-child, .btn-chat:last-child:hover {
+  border-radius: 0 4px 4px 0!important;
+  border-right-width: 1px!important;
+}*/
+
+#afktoggle { color: #5cb55c; }
+#afktoggle:hover { color: #0f0; }
+#afktoggle.afkactive { color: #aa4040; }
+#afktoggle.afkactive:hover { color: red; }
+
+/*.btn-info {
+  box-shadow: 1px 1px 2px #000000a1, inset 0 0 6px #1e4af9d6;
+  color: #7ae0ff;
+}*/
+
+.btn-danger {
+  box-shadow: 1px 1px 2px #000000a1, inset 0 0 6px #ff0000f5!important;
+  color: #ff8181;
+}
+
+.btn-warning {
+  box-shadow: 1px 1px 2px #000000a1, inset 0 0 6px #ffd700d6!important;
+  color: #ffff8b;
+}
+
+.btn-success {
+  box-shadow: 1px 1px 2px #000000a1, inset 0 0 6px #07e500d6!important;
+  color: #72ff4b;
+}
+
+.chat-msg .timestamp {
+  color: #ac0000;
+  text-shadow: 0 0 2px;
+}
+
+.chat-msg:nth-child(2n+1) .timestamp {
+  color: #008e00;
+}
+
+/*
+The texture doesn't repeat, so just do this for larger buttons, otherwise it looks pretty ugly on every button
+*/
+#text-colors-wrap .btn, #btn-reload-nnd, #opt-customcss .input-group-btn .btn {
+  background-size: cover;
+}
+
+.username {
+	text-shadow: 0 0 5px;
+}
+
+.well, .modal-content {
+  background-color: #131313c4;
+  border: 1px solid #00000094;
+  backdrop-filter: blur(6px);
+  background-image: linear-gradient(-16deg, #ea0f0f21, #0000004f 33%, #0000004f 66%, #0d930d45);
+  background-clip: padding-box;
+  background-repeat: no-repeat;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+  color: #ecceb9c7;
+  background-color: transparent;
+  border: 1px solid #220f06;
+  cursor: default;
+  background-image: url(https://checkthesedubs.github.io/img/christmas_btn.jpg) !important;
+  background-size: 100% auto;
+}
+
+.modal-footer, .nav-tabs {
+  border-color: black;
+}
+
+.nav > li > a:focus, .nav > li > a:hover {
+  background-color: #aaaaaa4d;
+  border-color: black;
+}
+
+.modal input.form-control[type="text"] {
+  background-color: #46464669 !important;
+  border-color: #ffffff21;
+}
+
+.emotelist-table, .emotelist-table td {
+  background-color: #ffffff0d;
+}
+
+.pagination > li.disabled > a, .pagination > li.disabled > a:hover, .pagination > li.disabled > span, .pagination > li.disabled > span:hover {
+  background-image: linear-gradient(#130802b2), url(https://checkthesedubs.github.io/img/christmas_btn.jpg) !important;
+  color: #4f423a;
+}
+
+.pagination > li > a, .pagination > li > span {
+  color: #b98d72;
+  text-shadow: 0 0 3px #0d0503ed;
+  background-image: url(https://checkthesedubs.github.io/img/christmas_btn.jpg) !important;
+  background-clip: padding-box;
+}

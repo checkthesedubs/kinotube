@@ -532,11 +532,11 @@ export function updateLayoutSettings() {
 		.concat(NavbarSize.map(i=>{return "navbar-size-"+i}))
 		.concat(PageSide.map(i=>{return "chat-side-"+i}));*/
 	
-	const bodyClassesToRemove = ["navbar-disabled"];
-	const reg_bodyclasses = /^(navbar-size|chat-width|chat-side)\-/i;
+	const bodyClassesToRemove = ["navbar-disabled", "chat-emotes-small"];
+	const reg_bodyclasses = /^(navbar-size|chat-(?:width|side|hdr|ftr))\-/i;
 
 	const msgBufClassesToRemove = [];
-	const reg_chatclasses = /^(chat-size|chat-avatars)\-/i;
+	const reg_chatclasses = /^(chat-(?:size|avatars))\-/i;
 
 	const body = document.getElementsByTagName("body")[0];
 	const msgBuf = document.getElementById("messagebuffer");
@@ -563,17 +563,44 @@ export function updateLayoutSettings() {
 	body.classList.add("navbar-size-" + SETTINGS.navbarSize);
 	body.classList.add("chat-width-" + SETTINGS.chatWidthSize);
 	body.classList.add("chat-side-" + SETTINGS.chatSide);
+	if (SETTINGS.chatSmallEmotes)
+		body.classList.add("chat-emotes-small");
+	if (SETTINGS.chatHeaderSize != "normal")
+		body.classList.add("chat-hdr-" + SETTINGS.chatHeaderSize);
+	if (SETTINGS.chatFooterSize != "normal")
+		body.classList.add("chat-ftr-" + SETTINGS.chatFooterSize);
+
 	msgBuf.classList.add("chat-size-" + SETTINGS.chatTextSize);
 	msgBuf.classList.add("chat-avatars-" + SETTINGS.chatAvatarSize);
 
 	scrollChat();
 }
 
+export function createFormCheckboxOption(id, label, key, onchange) {
+	const html = $('<div class="form-group">'+
+        '<div class="col-sm-8 col-sm-offset-4">'+
+        	'<div class="checkbox">'+
+				'<label for="'+id+'">'+
+					'<input id="'+id+'" type="checkbox">' + label +
+				'</label>'+
+        	'</div>'+
+        '</div>'+
+  	'</div>')
 
+	const checkbox = html.find("#" + id);
+
+	checkbox.prop("checked", SETTINGS[key]);
+
+	checkbox.on("change", function(e) {
+		onchange.call(this, e, key);
+	});
+
+	return html;
+}
 
 export function createFormSelectionOption(id, label, valid_options, key, onchange) {
 	const html = $('<div class="form-group">'+
-    	'<label class="control-label col-sm-4" for="#'+id+'">'+label+'</label>'+
+    	'<label class="control-label col-sm-4" for="'+id+'">'+label+'</label>'+
         '<div class="col-sm-8">'+
         	'<select class="form-control" id="'+id+'">'+
             '</select>'+

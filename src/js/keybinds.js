@@ -1,25 +1,24 @@
-let emoteListReady = true;
-
-EMOTELISTMODAL.on("hidden.bs.modal", ()=>{
-	emoteListReady = true;
-})
-EMOTELISTMODAL.on("hide.bs.modal", ()=>{
-	emoteListReady = false;
-})
 EMOTELISTMODAL.on("show.bs.modal", ()=>{
-	emoteListReady = false;
-})
-EMOTELISTMODAL.on("shown.bs.modal", ()=>{
-	emoteListReady = true;
+	EMOTELISTMODAL[0].querySelector(".tab-pane.active .emotelist-search").focus();
 })
 
 $(document).on("keydown", function(e) {
-	if (e.keyCode === 69 && e.ctrlKey) {
-		e.preventDefault();
-		e.stopPropagation();
+	if (e.ctrlKey) {
+		if (e.keyCode === 69) { // ctrl+e - emote menu
+			e.preventDefault();
+			e.stopPropagation();
 
-		if (emoteListReady && ($(".modal.in").length <= 0 || EMOTELISTMODAL.hasClass("in"))) {
-			EMOTELISTMODAL.modal();
+			if ($(".modal.in").length <= 0) {
+				EMOTELISTMODAL.modal();
+			}
+		}
+		else if (e.keyCode === 83) { // ctrl+s - script settings
+			e.preventDefault();
+			e.stopPropagation();
+
+			if ($(".modal.in").length <= 0) {
+				MODALS["scriptSettings"]?.modal();
+			}
 		}
 	}
 })

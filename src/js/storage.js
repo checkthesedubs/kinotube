@@ -7,6 +7,9 @@ export const KEY_chatAntifloodSimilar = SAVEKEY_PFX+ROOM_PFX +	"chatAntifloodSim
 export const KEY_chatAvatarSize		= SAVEKEY_PFX +				"chatAvatarSize";
 export const KEY_chatTextSize		= SAVEKEY_PFX +				"chatTextSize";
 export const KEY_chatWidthSize		= SAVEKEY_PFX +				"chatWidthSize";
+export const KEY_chatHeaderSize		= SAVEKEY_PFX +				"chatHeaderSize";
+export const KEY_chatFooterSize		= SAVEKEY_PFX +				"chatFooterSize";
+export const KEY_chatSmallEmotes	= SAVEKEY_PFX +				"chatSmallEmotes";
 export const KEY_navbarSize			= SAVEKEY_PFX +				"navbarSize";
 export const KEY_navbarHidden		= SAVEKEY_PFX +				"navbarHidden";
 export const KEY_chatSide			= SAVEKEY_PFX +				"chatSide";
@@ -30,6 +33,7 @@ export const KEY_theme	   			= SAVEKEY_PFX +	ROOM_PFX + 	"theme";
 export const KEY_hideServerMsgs		= SAVEKEY_PFX +				"hideServerMsgs";
 export const KEY_hideConnectionMessages = SAVEKEY_PFX +			"hideConnectionMessages";
 export const KEY_hideBotMessages	= SAVEKEY_PFX +				"hideBotMessages";
+export const KEY_lastForcedTheme	= SAVEKEY_PFX + ROOM_PFX +	"lastForcedTheme";
 
 
 export function saveall() {
@@ -45,6 +49,9 @@ export function saveall() {
 	setOpt(KEY_chatAvatarSize		, SETTINGS.chatAvatarSize);
 	setOpt(KEY_chatTextSize			, SETTINGS.chatTextSize);
 	setOpt(KEY_chatWidthSize		, SETTINGS.chatWidthSize);
+	setOpt(KEY_chatHeaderSize		, SETTINGS.chatHeaderSize);
+	setOpt(KEY_chatFooterSize		, SETTINGS.chatFooterSize);
+	setOpt(KEY_chatSmallEmotes		, SETTINGS.chatSmallEmotes);
 	setOpt(KEY_navbarSize			, SETTINGS.navbarSize);
 	setOpt(KEY_navbarHidden			, SETTINGS.navbarHidden);
 	setOpt(KEY_chatSide				, SETTINGS.chatSide);
@@ -64,4 +71,5 @@ export function saveall() {
 	setOpt(KEY_hideServerMsgs		, SETTINGS.hideServerMsgs);
 	setOpt(KEY_user_avatars    		, SETTINGS.saveUserAvatarCache ? CACHE.user_avatars : {});
 	setOpt(KEY_hideConnectionMessages,SETTINGS.hideConnectionMessages);
+	setOpt(KEY_lastForcedTheme		, SETTINGS.lastForcedTheme);
 }

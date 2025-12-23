@@ -1,5 +1,6 @@
 import { toggleFavoriteEmote } from "../utils";
 import { CustomEmoteList } from "./CustomEmoteList";
+import preview_image from "../../img/cia.jpg";
 
 export class FXEmoteList extends CustomEmoteList {
 	constructor(selector, list, emoteClickCallback) {
@@ -49,7 +50,7 @@ FXEmoteList.prototype.loadPage = function (page) {
 
 			var img = document.createElement("img");
 			img.loading = "lazy";
-			img.src = CACHE.fx_preview_img;
+			img.src = preview_image;
 			img.className = "emote-preview channel-emote";
 
 			td.appendChild(fxHax);

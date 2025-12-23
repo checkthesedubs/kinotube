@@ -6,7 +6,7 @@ const { KEY_fxSortAlphabetical, KEY_ovSortAlphabetical } = require("../storage")
 const { addTabsToModal, blankEmoteTabBody } = require("../ui/ui");
 const { addTextToChatline, emoteIsFx } = require("../utils");
 
-import * as css from "../../css/emote_fx.css";
+//import * as css from "../../css/emote_fx.css";
 
 const reg_fx = /^(fx|ov)[A-Z0-9]/;
 

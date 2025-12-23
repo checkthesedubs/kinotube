@@ -327,7 +327,8 @@ window.Callbacks.renameEmote = function (data) {
 
 window.Callbacks.usercount = function (count) {
 	CHANNEL.usercount = count;
-	$("#usercount").text(count);
+	document.getElementById("usercount-mini").textContent = count + " online";
+	document.getElementById("usercount").textContent = count;
 }
 
 $("#chatbtn").off("click").on("click", sendChatInput);

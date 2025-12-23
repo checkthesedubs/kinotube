@@ -1,10 +1,9 @@
 if (window.CLIENT.Nexus) throw new Error("Could not load plugin, it's already loaded!");
 
-import { KEY_lastVersion, KEY_autoAcceptEmbed, KEY_cacheUserAvatars, KEY_chatAvatarSize, KEY_chatSide, KEY_chatTextSize, KEY_chatWidthSize, KEY_colorSeedOffset, KEY_dontRollFXEmotes, KEY_emoteFavorites, KEY_hideConnectionMessages, KEY_hideServerMsgs, KEY_navbarSize, KEY_playerVolume, KEY_saveUserAvatarCache, KEY_theme, KEY_trimUserAvatarCache, KEY_user_avatars, KEY_navbarHidden, KEY_chatAntifloodExact, KEY_chatAntifloodSimilar, KEY_hideBotMessages } from "./storage";
+import { KEY_lastVersion, KEY_autoAcceptEmbed, KEY_cacheUserAvatars, KEY_chatAvatarSize, KEY_chatSide, KEY_chatTextSize, KEY_chatWidthSize, KEY_colorSeedOffset, KEY_dontRollFXEmotes, KEY_emoteFavorites, KEY_hideConnectionMessages, KEY_hideServerMsgs, KEY_navbarSize, KEY_playerVolume, KEY_saveUserAvatarCache, KEY_theme, KEY_trimUserAvatarCache, KEY_user_avatars, KEY_navbarHidden, KEY_chatAntifloodExact, KEY_chatAntifloodSimilar, KEY_hideBotMessages, KEY_chatHeaderSize, KEY_chatSmallEmotes, KEY_chatFooterSize, KEY_lastForcedTheme } from "./storage";
 import * as css from "../css/base.scss";
-import image from "../img/cia.jpg";
 import { validateOption } from "./utils";
-import { ChatAvatarSize, ChatSize, ChatWidthSize, NavbarSize, PageSide } from "./enum";
+import { ChatAvatarSize, ChatFooterSize, ChatHeaderSize, ChatSize, ChatWidthSize, NavbarSize, PageSide } from "./enum";
 
 window.LAST_CONNECT_TIME = Date.now();
 
@@ -17,6 +16,9 @@ window.CLIENT.Nexus = {
 		chatSide: validateOption(PageSide, getOpt(KEY_chatSide), "right"),
 		chatTextSize: validateOption(ChatSize, getOpt(KEY_chatTextSize), "medium"),
 		chatWidthSize: validateOption(ChatWidthSize, getOpt(KEY_chatWidthSize), "normal"),
+		chatHeaderSize: validateOption(ChatHeaderSize, getOpt(KEY_chatHeaderSize), "normal"),
+		chatFooterSize: validateOption(ChatFooterSize, getOpt(KEY_chatFooterSize), "normal"),
+		chatSmallEmotes: getOrDefault(KEY_chatSmallEmotes, false),
 		navbarSize: validateOption(NavbarSize, getOpt(KEY_navbarSize), "normal"),
 		navbarHidden: getOrDefault(KEY_navbarHidden, false),
 		dontRollFXEmotes: getOrDefault(KEY_dontRollFXEmotes, true),
@@ -31,13 +33,13 @@ window.CLIENT.Nexus = {
 		theme: getOrDefault(KEY_theme, window.DefaultThemeOverride || "custtheme_billtube"),
 		hideConnectionMessages: getOrDefault(KEY_hideConnectionMessages, false),
 		hideBotMessages: getOrDefault(KEY_hideBotMessages, false),
+		lastForcedTheme: getOrDefault(KEY_lastForcedTheme, "none"),
 	},
 	cache: {
 		user_avatars: getOrDefault(KEY_user_avatars, {}),
 		emotes_fx: [],
 		emotes_ov: [],
-		last_rolls: {},
-		fx_preview_img: image
+		last_rolls: {}
 	},
 	modals: {},
 	plugins: {
@@ -45,7 +47,7 @@ window.CLIENT.Nexus = {
 	},
 	fn: {},
 	_last_version: getOrDefault(KEY_lastVersion, "0.0.0"),
-	_version: "0.0.26"
+	_version: "0.0.27"
 }
 
 window.CACHE = window.CLIENT.Nexus.cache;

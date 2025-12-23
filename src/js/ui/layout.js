@@ -27,6 +27,7 @@ export function fixVidTitle(data) {
 export function fixUserCount() {
 	let users = /^(\d+)/.exec($("#usercount").text());
 	$("#usercount").text(users ? users[1] : "---")
+	$("#usercount-mini").text(users ? users[1] + " online" : "---")
 }
 
 function setNavbarVisibility(visible) {
@@ -97,6 +98,13 @@ $("#currenttitle").prependTo("#chatheader").before('<i class="fa fa-play"></i>')
 
 $("#usercount").off().on("click", toggleUserlist).attr("title", "Show/Hide Userlist")
 			   .insertAfter($("#userlisttoggle").off().on("click", toggleUserlist).attr("class", "fa fa-users pointer"));
+
+$("<div/>", {
+	id: "usercount-mini",
+	class: "pointer",
+	title: "Show/Hide Userlist",
+	text: "0 online"
+}).on("click", toggleUserlist).prependTo("#chatwrap");
 
 $("#chat-buttons-left").append(createChatButton("emotebtn", "Emote Menu", "smile-o", () => { EMOTELISTMODAL.modal(); }, null));
 $("#chat-buttons-right").append(createChatButton("navtogglebtn", "Toggle Top Bar", "window-maximize", () => { setNavbarVisibility(); }, null))

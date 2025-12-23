@@ -167,6 +167,7 @@ export function emoteIsFx(name) {
 		(code >= 48 && code <= 57 || code >= 65 && code <= 90)) {
 		return true;
 	}
+	return false;
 }
 
 export function flipMap(map) {

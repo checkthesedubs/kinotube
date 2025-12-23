@@ -1,5 +1,4 @@
 var path = require('path');
-var webpack = require('webpack');
 const TerserPlugin = require("terser-webpack-plugin");
 const project_name = "kinotube";
 

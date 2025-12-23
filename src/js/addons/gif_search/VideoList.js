@@ -1,4 +1,4 @@
-import { /*createFavButton,*/ createImageEmbed/*, createVideoEmbed*/ } from "./addon";
+import { createImageEmbed } from "./addon";
 import { CustomEmoteList } from "../../classes/CustomEmoteList";
 
 export class VideoList extends CustomEmoteList {
@@ -43,7 +43,6 @@ VideoList.prototype.loadPage = function (page) {
 				class: "tenor-wrap"
 			}).append(
 				createImageEmbed(emote, "tenor-embed", false, _this.emoteClickCallback.bind(null, emote))
-				//createVideoEmbed(emote, null, SETTINGS.gifMenuAutoplay, "tenor-embed", _this.emoteClickCallback.bind(null, emote))[0]
 			).appendTo(columns.eq(col))
 			
         })(this.emotes[i]);

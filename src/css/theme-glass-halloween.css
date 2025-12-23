@@ -382,7 +382,7 @@ textarea.form-control {
 	color: #d96639;
 }
 
-#afktoggle.active {
+#afktoggle.afkactive {
 	color: #7a40bf;
 	background: rgba(29, 3, 68, 0.25);
 }

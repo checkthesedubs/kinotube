@@ -42,9 +42,9 @@ export function onRenameEmote(data, list, emotelist) {
 socket.on("setAFK", function (data) {
 	if (CLIENT.name !== "" && data.name === CLIENT.name) {
 		if (data.afk)
-			$("#afktoggle").addClass("active");
+			$("#afktoggle").addClass("afkactive");
 		else
-			$("#afktoggle").removeClass("active");
+			$("#afktoggle").removeClass("afkactive");
 	}
 })
 

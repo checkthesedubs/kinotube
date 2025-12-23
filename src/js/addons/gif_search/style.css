@@ -107,9 +107,12 @@
 	position: relative;
 }
 
-.tenor-chat-embed {
-	&, & video, & img {
-		max-width: 250px;
-		max-height: 96px;
-	}
+.tenor-chat-embed, .tenor-chat-embed video, .tenor-chat-embed img {
+	max-width: 250px;
+	max-height: 96px;
+}
+
+.chat-emotes-small .tenor-chat-embed, .chat-emotes-small .tenor-chat-embed video, .chat-emotes-small .tenor-chat-embed img {
+	max-width: 125px;
+	max-height: 48px;
 }
