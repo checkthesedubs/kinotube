@@ -1,15 +1,15 @@
-.tenor-embed, .tenor-embed img {
+.gif-embed, .gif-embed img {
 	margin: 0;
 	width: 100%;
 	border-radius: 12px;
 	cursor: pointer;
 }
 
-.tenor-column {
+.gif-column {
 	flex: 1;
 }
 
-.tenor-container {
+.gif-container {
 	height: 450px;
 	overflow-y: scroll;
 	width: 100%;
@@ -20,12 +20,12 @@
 	margin-top: 10px;
 }
 
-.tenor-wrap {
+.gif-wrap {
 	position: relative;
 	padding: 3px;
 }
 
-.tenor-wrap:hover .gif-btn,
+.gif-wrap:hover .gif-btn,
 .tenor-chat-embed:hover .gif-btn {
 	display: block;
 }

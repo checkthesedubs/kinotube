@@ -1,4 +1,4 @@
-import { ChatWidthSize, NavbarSize, ChatSize, ChatAvatarSize, PageSide, ChatHeaderSize, ChatFooterSize} from "../enum";
+import { NavbarSize, ChatSize, ChatAvatarSize, PageSide, ChatHeaderSize, ChatFooterSize} from "../enum";
 import { addTabsToModal, updateLayoutSettings, createFormSelectionOption, createFormCheckboxOption } from "./ui";
 
 function onChange(e, key) {
@@ -12,7 +12,6 @@ function onChange(e, key) {
 
 const BODY_layout = $("<form/>", {class: "form-horizontal"})
 	.append(createFormSelectionOption("opt-layout-navsize", "Navbar Size", NavbarSize, "navbarSize", onChange))
-	.append(createFormSelectionOption("opt-layout-chatw", "Chat Width", ChatWidthSize, "chatWidthSize", onChange))
 	.append(createFormSelectionOption("opt-layout-chattext", "Chat Text Size", ChatSize, "chatTextSize", onChange))
 	.append(createFormSelectionOption("opt-layout-chatava", "Chat Avatar Size", ChatAvatarSize, "chatAvatarSize", onChange))
 	.append(createFormSelectionOption("opt-layout-chatside", "Chat Side", PageSide, "chatSide", onChange))

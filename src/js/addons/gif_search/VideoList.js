@@ -23,9 +23,9 @@ VideoList.prototype.handleChange = function () {
 };
 
 VideoList.prototype.loadPage = function (page) {
-	const columns = this.elem.find(".tenor-column");
+	const columns = this.elem.find(".gif-column");
 	columns.empty();
-	
+
     var col = 0;
     var start = page * this.itemsPerPage;
     if (start >= this.emotes.length) return;
@@ -40,11 +40,11 @@ VideoList.prototype.loadPage = function (page) {
         (function (emote) {
 
 			$("<div/>", {
-				class: "tenor-wrap"
+				class: "gif-wrap"
 			}).append(
-				createImageEmbed(emote, "tenor-embed", false, _this.emoteClickCallback.bind(null, emote))
+				createImageEmbed(emote, "gif-embed", false, _this.emoteClickCallback.bind(null, emote))
 			).appendTo(columns.eq(col))
-			
+
         })(this.emotes[i]);
     }
 

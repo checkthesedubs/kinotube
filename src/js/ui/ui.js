@@ -1,6 +1,6 @@
 import { ChatCommandAliases, ChatCommands } from "../classes/ChatCommand";
 import { ClientCommandAliases, ClientCommands } from "../classes/ClientCommand";
-import { addTextToChatline, escapeHTML, flipMap, getAvatar, stringToColor, toggleFavoriteEmote } from "../utils";
+import { addTextToChatline, escapeHTML, flipMap, getAvatar, sanitizeImage, stringToColor, toggleFavoriteEmote } from "../utils";
 
 export const blankEmoteTabBody =
 	'<div class="pull-left"><input class="emotelist-search form-control" type="text" placeholder="Search"></div>'+
@@ -57,7 +57,7 @@ export function addTabsToModal(modal_id, tabs, replacement_id, replacement_text)
 		if (tabcontent.length <= 0) {
 			let children = body.find(">").detach();
 			tabcontent = $("<div/>", { "class": "tab-content" }).appendTo(body);
-			
+
 			$("<div/>", {
 				"class": "tab-pane",
 				id: replacement_id
@@ -290,7 +290,7 @@ export function createModal(options, show) {
 		const footer = $("<div/>", {
 			"class": "modal-footer"
 		}).appendTo(content);
-	
+
 		for (let i = 0; i < options.buttons.length; i++) {
 			let button =
 				$("<button/>", {
@@ -298,14 +298,14 @@ export function createModal(options, show) {
 					"type": "button",
 					"text": options.buttons[i].text
 				})
-	
+
 			if (options.buttons[i].dismiss)
 				button.attr("data-dismiss", "modal");
-	
+
 			let onclick = options.buttons[i].onclick;
 			if (onclick && typeof (onclick) === "function")
 				button.on("click", onclick);
-	
+
 			footer.append(button);
 		}
 	}
@@ -348,6 +348,7 @@ export function createTemporaryModal(options) {
 			modal.remove();
 		})
 	}
+	return modal;
 }
 
 function createChatButtonInternal(id, title, onclick, extraClasses) {
@@ -475,7 +476,9 @@ export function updateAccountButton(data) {
 		else if (text === "account" && !data.guest && data.logged_in) {
 			const userinfo = findUserlistItem(data.name);
 			if (userinfo) {
-				const pfp = userinfo.data().profile ? userinfo.data().profile.image || "" : "";
+				let pfp = userinfo.data().profile ? userinfo.data().profile.image || "" : "";
+				if (SETTINGS.sanitizeProfileImg) pfp = sanitizeImage(pfp);
+				if (pfp == "") pfp = "//:0";
 				this.childNodes[0].textContent = " " + data.name + " ";
 				$(this).find("> a > img").remove();
 				$(this).prepend($("<img/>").attr("src", pfp).attr("class", "profile-image-small"))
@@ -527,11 +530,11 @@ export function SpawnCommandModal() {
 }
 
 export function updateLayoutSettings() {
-	/*const bodyClassesToRemove = 
+	/*const bodyClassesToRemove =
 		ChatWidthSize.map(i=>{return "chat-width-"+i})
 		.concat(NavbarSize.map(i=>{return "navbar-size-"+i}))
 		.concat(PageSide.map(i=>{return "chat-side-"+i}));*/
-	
+
 	const bodyClassesToRemove = ["navbar-disabled", "chat-emotes-small"];
 	const reg_bodyclasses = /^(navbar-size|chat-(?:width|side|hdr|ftr))\-/i;
 
@@ -559,9 +562,8 @@ export function updateLayoutSettings() {
 	if (SETTINGS.navbarHidden) {
 		body.classList.add("navbar-disabled");
 	}
-	
+
 	body.classList.add("navbar-size-" + SETTINGS.navbarSize);
-	body.classList.add("chat-width-" + SETTINGS.chatWidthSize);
 	body.classList.add("chat-side-" + SETTINGS.chatSide);
 	if (SETTINGS.chatSmallEmotes)
 		body.classList.add("chat-emotes-small");

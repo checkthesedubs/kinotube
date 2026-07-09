@@ -156,8 +156,12 @@ body,
 }
 
 .well {
-	border: 0px solid #0c0d0e;
+	border: 1px solid #0c0d0e;
 	font-weight: 700;
+}
+
+#pollwrap .well.active {
+	background: black;
 }
 
 .section,

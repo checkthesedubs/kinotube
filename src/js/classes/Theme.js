@@ -39,6 +39,15 @@ export class Theme {
 		$("#opt-customthemes .theme-selection").append(p);
 	}
 
+	removeOption() {
+
+		const self = this;
+
+		$("#opt-customthemes ." + this.id).remove();
+		delete themes[this.id];
+		
+	}
+
 	apply(saveTheme) {
 		const css_element = document.getElementsByClassName("custom-theme-css")[0];
 		if (this.cssIsLink) {

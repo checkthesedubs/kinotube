@@ -6,6 +6,7 @@ module.exports = function(env) {
   var config = {entry: {}};
 
   config.entry[project_name] = [
+	'./src/js/preload.js',
 	'./src/js/storage.js',
 	'./src/js/index.js',
 	'./src/js/enum.js',
@@ -32,6 +33,8 @@ module.exports = function(env) {
 	'./src/js/video/audiocontrol.js',
 	'./src/js/ui/emotelist_override.js',
 	'./src/js/ui/motd_editor.js',
+	'./src/js/ui/chat_resize.js',
+	'./src/js/ui/changelog.js',
 	'./src/js/expose.js',
 	'./src/js/addons/gif_search/addon.js',
 	'./src/js/addons/nnd/addon.js',

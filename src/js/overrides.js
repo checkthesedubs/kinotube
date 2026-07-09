@@ -2,8 +2,9 @@
 import { execCommand } from "./classes/ChatCommand";
 import { execClientCommand } from "./classes/ClientCommand";
 import { EventDataHook } from "./classes/EventDataHook";
+import { onScriptAccept } from "./events";
 import { onChatEmoteClick } from "./ui/ui";
-import { addTextToChatline, getAvatar, messageUsesValidCommand, stringToColor } from "./utils";
+import { addMessageToChatHistory, addTextToChatline, addTextToPMChatline, getAvatar, messageUsesValidCommand, sanitizeImage, stringToColor } from "./utils";
 
 export const RenameEmoteHook = new EventDataHook(false);
 export const FormatChatMsgProcHook = new EventDataHook(true);
@@ -20,8 +21,7 @@ function sendChatInput() {
 		if (msg.charAt(0) == "/") {
 			let cmdPart = msg.split(" ")[0].toLowerCase();
 			if (execClientCommand(cmdPart, msg.substring(cmdPart.length + 1).trim())) {
-				CHATHIST.push(msg);
-				CHATHISTIDX = CHATHIST.length;
+				addMessageToChatHistory(msg, true);
 				$("#chatline").val("");
 				return;
 			}
@@ -50,8 +50,7 @@ function sendChatInput() {
 		if (cmdOutput && cmdOutput !== "") {
 			socket.emit("chatMsg", { msg: '🤖 ' + cmdOutput, meta: meta });
 		}
-		CHATHIST.push($("#chatline").val());
-		CHATHISTIDX = CHATHIST.length;
+		addMessageToChatHistory($("#chatline").val(), true);
 		$("#chatline").val("");
 	}
 }
@@ -74,7 +73,9 @@ $("#chatline").on("keydown", function (ev) {
 	}
 	else if (ev.keyCode == 38) { // Up arrow (input history)
 		if (CHATHISTIDX == CHATHIST.length) {
-			CHATHIST.push($("#chatline").val());
+			const input = $("#chatline").val();
+			if (input.trim() != "")
+				addMessageToChatHistory(input, false);
 		}
 		if (CHATHISTIDX > 0) {
 			CHATHISTIDX--;
@@ -88,6 +89,9 @@ $("#chatline").on("keydown", function (ev) {
 		if (CHATHISTIDX < CHATHIST.length - 1) {
 			CHATHISTIDX++;
 			$("#chatline").val(CHATHIST[CHATHISTIDX]);
+		} else {
+			CHATHISTIDX = CHATHIST.length;
+			$("#chatline").val("");
 		}
 
 		ev.preventDefault();
@@ -122,6 +126,7 @@ window.formatChatMessage = function (data, last) {
 			addClassToNameAndTimestamp: data.msgclass
 		};
 	}
+	const isPM = !!data.to;
 	// Phase 1: Determine whether to show the username or not
 	var skip = data.username === last.name;
 	if (data.meta.addClass === "server-whisper")
@@ -136,6 +141,7 @@ window.formatChatMessage = function (data, last) {
 	data.msg = execEmotes(data.msg);
 
 	last.name = data.username;
+	
 	var div = $("<div/>").addClass("chat-msg");
 	/* drink is a special case because the entire container gets the class, not
 	   just the message */
@@ -155,18 +161,21 @@ window.formatChatMessage = function (data, last) {
 	}
 
 	// Add username
-	var name = $("<span/>")
-		.addClass("nametitle");
+	var name = $("<span/>");
+	if (!isPM) name.addClass("nametitle");
+	
 	if (!skip) {
 		name.appendTo(div);
-		div.addClass("chat-new");
+		if (!isPM) div.addClass("chat-new");
 	}
 	let color = stringToColor(data.username);
-	let username_el = $("<strong/>").addClass("username").text(data.username + ": ").css("color", color).on("click", function () {
+	let username_el = $("<strong/>").addClass("username").text(data.username + ": ").css("color", color);
+	
+	if (!isPM) username_el.on("click", function () {
 		addTextToChatline(data.username + ": ", true);
 	});
 
-	if (SETTINGS.chatAvatarSize !== "none") {
+	if (!isPM && SETTINGS.chatAvatarSize !== "none") {
 
 		let avatar = getAvatar(data.username);
 
@@ -203,12 +212,23 @@ window.formatChatMessage = function (data, last) {
 	// Add the message itself
 	var message = $("<span/>").addClass("message").appendTo(div);
 	message[0].innerHTML = data.msg;
-
-	message.find(".channel-emote").on("click", function (e) {
-		onChatEmoteClick.call(this, e);
-	});
-
-	message = FormatChatMsgProcHook.processListeners(message, data);
+	
+	if (!isPM) {
+		message.find(".channel-emote").on("click", function (e) {
+			onChatEmoteClick.call(this, e);
+		});
+	} else {
+		message.find(".channel-emote").on("click", function (e) {
+			if (data.to != CLIENT.name && data.username == CLIENT.name) {
+				addTextToPMChatline(data.to, this.title, true);
+			} else if (data.to == CLIENT.name && data.username != CLIENT.name) {
+				addTextToPMChatline(data.username, this.title, true);
+			}
+		});
+	}
+	
+	if (!isPM)
+		message = FormatChatMsgProcHook.processListeners(message, data);
 
 	// For /me the username is part of the message
 	if (data.meta.action) {
@@ -572,9 +592,9 @@ window.formatUserlistItem = function(div) {
             .appendTo(div);
 
         if(data.profile.image) {
-            $("<img/>").addClass("profile-image")
-                .attr("src", data.profile.image)
-                .appendTo(profile);
+			const pfp_url = SETTINGS.sanitizeProfileImg ? sanitizeImage(data.profile.image) : data.profile.image;
+			if (pfp_url != "" && pfp_url != "//:0")
+            	$("<img/>").addClass("profile-image").attr("src", pfp_url).appendTo(profile);
         }
         $("<strong/>").text(data.name).appendTo(profile);
 
@@ -617,6 +637,77 @@ window.formatUserlistItem = function(div) {
     if (data.icon) {
         $("<span/>").addClass("glyphicon " + data.icon).prependTo(icon);
     }
+}
+
+window.Callbacks.closePoll = function() {
+	if($("#pollwrap .active").length != 0) {
+		var poll = $("#pollwrap .active");
+		poll.removeClass("active minimized").addClass("muted");
+		poll.find(".option button").each(function() {
+			$(this).attr("disabled", true);
+		});
+		poll.find(".btn-danger").each(function() {
+			$(this).remove();
+		});
+		poll.find(".close.minimize").remove();
+	}
+}
+
+window.Callbacks.channelCSSJS = function(data) {
+	if (CyTube.channelCustomizations.cssHash !== data.cssHash) {
+		$("#chancss").remove();
+		CHANNEL.css = data.css;
+		$("#cs-csstext").val(data.css);
+		if(data.css && !USEROPTS.ignore_channelcss) {
+			$("<style/>").attr("type", "text/css")
+				.attr("id", "chancss")
+				.text(data.css)
+				.on("load", function () {
+					handleVideoResize();
+				})
+				.appendTo($("head"));
+		}
+
+		if (data.cssHash) {
+			CyTube.channelCustomizations.cssHash = data.cssHash;
+		}
+	}
+
+	if (CyTube.channelCustomizations.jsHash !== data.jsHash) {
+		$("#chanjs").remove();
+		CHANNEL.js = data.js;
+		$("#cs-jstext").val(data.js);
+
+		if(data.js && !USEROPTS.ignore_channeljs) {
+			var viewSource = document.createElement("button");
+			viewSource.className = "btn btn-danger";
+			viewSource.textContent = "View inline script source";
+			viewSource.onclick = function () {
+				var content = document.createElement("pre");
+				content.textContent = data.js;
+				modalAlert({
+					title: "Inline JS",
+					htmlContent: content.outerHTML,
+					dismissText: "Close"
+				});
+			};
+
+			checkScriptAccess(viewSource, "embedded", function (pref) {
+				if (pref === "ALLOW") {
+					$("<script/>").attr("type", "text/javascript")
+						.attr("id", "chanjs")
+						.text(data.js)
+						.appendTo($("body"));
+
+						onScriptAccept();
+				}
+			});
+		}
+
+		if (data.jsHash) {
+			CyTube.channelCustomizations.jsHash = data.jsHash;
+		}
+	}
 }
 
 let useritems = $(".userlist_item");

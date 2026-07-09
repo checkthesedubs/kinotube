@@ -1,4 +1,4 @@
-import { apiCall_tenor } from "../../api";
+import { apiCall_gifsearch } from "../../api";
 import { VideoList } from "./VideoList";
 import { FormatChatMsgProcHook } from "../../overrides";
 import { SAVEKEY_PFX } from "../../storage";
@@ -10,29 +10,48 @@ import * as css from "./style.css";
 const id = "gif-modal";
 const key = "GIFSEARCH";
 
-const KEY_gifFavorites    	 = SAVEKEY_PFX + "gifFavs";
+const KEY_gifFavoritesOld 	 = SAVEKEY_PFX + "gifFavs"; //DO NOT USE
+const KEY_gifFavorites    	 = SAVEKEY_PFX + "gifFavs1";
 const KEY_gifChatEnabled	 = SAVEKEY_PFX + "gifChatEnabled";
 const KEY_gifSearchResultNum = SAVEKEY_PFX + "gifSearchResultNum";
 const KEY_gifAutoSend		 = SAVEKEY_PFX + "gifAutoSend";
+const KEY_gifAddToChatHist	 = SAVEKEY_PFX + "gifAddToChatHist";
 
-SETTINGS.gifFavorites 		= getOrDefault(KEY_gifFavorites, []);
+const old_favorites = getOrDefault(KEY_gifFavoritesOld, []);
+
+SETTINGS.gifFavorites 		= getOrDefault(KEY_gifFavorites, old_favorites);
 SETTINGS.gifChatEnabled 	= getOrDefault(KEY_gifChatEnabled, true);
 SETTINGS.gifSearchResultNum = getOrDefault(KEY_gifSearchResultNum, 20);
 SETTINGS.gifAutoSend 		= getOrDefault(KEY_gifAutoSend, true);
+SETTINGS.gifAddToChatHist 	= getOrDefault(KEY_gifAddToChatHist, true);
 
-$(window).unload(function() {
+$(window).unload(function () {
+  if (!window.CLIENT.Nexus.plugins.loaded["gif_search"]) return;
+
 	setOpt(KEY_gifFavorites			, SETTINGS.gifFavorites);
 	setOpt(KEY_gifChatEnabled 		, SETTINGS.gifChatEnabled);
 	setOpt(KEY_gifSearchResultNum	, SETTINGS.gifSearchResultNum);
 	setOpt(KEY_gifAutoSend			, SETTINGS.gifAutoSend);
+	setOpt(KEY_gifAddToChatHist		, SETTINGS.gifAddToChatHist);
 })
 
 let can_autosend = true;
 let last_repost = 0;
+let merging_favs = false;
 
 window.CLIENT.Nexus.plugins.loaded["gif_search"] = true;
 
-const reg_tenor = /^https\:\/\/media\.tenor\.com\/[\w\-]+\/[\%\w\-]+\.(webp|gif)$/;
+function mergeOldFavs() {
+	if (merging_favs) return;
+	merging_favs = true;
+	for (let i = 0; i < old_favorites.length; i++) {
+		addGifToFavorites(old_favorites[i]);
+	}
+	merging_favs = false;
+}
+
+const reg_tenor = /^https\:\/\/media\d*\.tenor\.com\/(?:m\/)?[\w\-]+\/[\%\w\-]+\.(webp|gif)$/;
+const reg_klipy = /^https\:\/\/static\d*\.klipy\.com\/ii\/[\w\-]+\/[\w\-]+\/[\w\-]+\/[\%\w\-]+\.(webp|gif)$/;
 
 function onFavClick(el, URL, icon) {
 	if (!addGifToFavorites(URL)) {
@@ -50,7 +69,7 @@ function onFavClick(el, URL, icon) {
 }
 
 function addGifToFavorites(gif_url) {
-	if (gif_url.match(reg_tenor) && !SETTINGS.gifFavorites.includes(gif_url)) {
+	if ((gif_url.match(reg_klipy) || gif_url.match(reg_tenor)) && !SETTINGS.gifFavorites.includes(gif_url)) {
 		SETTINGS.gifFavorites.push(gif_url);
 		setOpt(KEY_gifFavorites, SETTINGS.gifFavorites);
 		return true;
@@ -67,14 +86,14 @@ function removeGifFromFavorites(gif_url) {
 }
 
 function onStandardClick(URL) {
-	
+
 	if (!SETTINGS.gifChatEnabled) return;
-							
+
 	if (SETTINGS.gifAutoSend && !can_autosend) return;
 
 	if (SETTINGS.gifAutoSend) {
 		can_autosend = false;
-		sendMessage(URL);
+		sendMessage(URL, SETTINGS.gifAddToChatHist);
 	} else
 		addTextToChatline(URL + " ");
 
@@ -96,7 +115,7 @@ function buildGifSearch() {
 	const searchbar = $("<input/>", {
 		class: "form-control input-sm",
 		type: "text",
-		placeholder: "Search Tenor"
+		placeholder: "Search KLIPY"
 	});
 
 	const clearbtn = $("<button/>", {
@@ -114,6 +133,10 @@ function buildGifSearch() {
 	inputgrpbtn.appendChild(searchbtn[0]);
 	inputgrpbtn.appendChild(clearbtn[0]);
 
+	const search_warning = document.createElement("div");
+	search_warning.classList.add("alert", "alert-warning");
+	search_warning.textContent = "Tenor's search API has been shut down, so this now uses KLIPY. Tenor links will still work when posted in chat. Room owners will have to add KLIPY filters to their rooms.";
+
 	const inputgrp = document.createElement("div");
 	inputgrp.classList.add("input-group");
 	inputgrp.appendChild(searchbar[0]);
@@ -121,16 +144,16 @@ function buildGifSearch() {
 
 	const columns = [];
 	const COLUMN_NUM = 4;
-	const container = $('<div class="tenor-container"></div>');
+	const container = $('<div class="gif-container"></div>');
 
 	for (let i = 0; i < COLUMN_NUM; i++) {
-		const column = $("<div class='tenor-column'></div>");
+		const column = $("<div class='gif-column'></div>");
 		columns.push(column);
 		container.append(column);
 	}
 
 	clearbtn.on("click", function (e) {
-		$("#gf-search .tenor-column").empty();
+		$("#gf-search .gif-column").empty();
 		searchbar.val("");
 	})
 
@@ -148,22 +171,22 @@ function buildGifSearch() {
 
 		if (!SETTINGS.gifChatEnabled) return;
 
-		apiCall_tenor({term: term, limit: document.getElementById("gf-in-resultnum").value}, function (ok, data) {
-			if (ok && data && data.results) {
+		apiCall_gifsearch({term: term, limit: document.getElementById("gf-in-resultnum").value}, function (ok, data) {
+			if (ok && data && data.result) {
 
-				$("#gf-search .tenor-column").empty();
+				$("#gf-search .gif-column").empty();
 
-				const r = data.results;
+				const r = data.data.data;
 				let c = 0;
 
 				for (let i = 0; i < r.length; i++) {
 
-					const URL = r[i].media_formats["tinywebp"].url;
+					const URL = r[i].file["md"]["webp"].url;
 
 					$("<div/>", {
-						class: "tenor-wrap"
+						class: "gif-wrap"
 					}).append(
-						createImageEmbed(URL, "tenor-embed", false, ()=>{onStandardClick(URL)})
+						createImageEmbed(URL, "gif-embed", false, ()=>{onStandardClick(URL)})
 					).append(createFavButton(URL))
 						.appendTo(columns[c])
 
@@ -174,7 +197,7 @@ function buildGifSearch() {
 
 		})
 	}
-	
+
 	const settings_body = $("<div/>");
 
 	MODALS[key] = createModal({
@@ -184,7 +207,7 @@ function buildGifSearch() {
 			{
 				text: "Search",
 				id: "gf-search",
-				body: $(inputgrp).add(container)
+				body: $(search_warning).add(inputgrp).add(container)
 			},
 			{
 				text: "Favorites",
@@ -208,7 +231,7 @@ function buildGifSearch() {
 	})
 
 	for (let i = SETTINGS.gifFavorites.length-1; i > 0; i--) {
-		if (!reg_tenor.test(SETTINGS.gifFavorites[i])) {
+		if (!reg_tenor.test(SETTINGS.gifFavorites[i]) && !reg_klipy.test(SETTINGS.gifFavorites[i])) {
 			SETTINGS.gifFavorites.splice(i, 1);
 		}
 	}
@@ -219,7 +242,7 @@ function buildGifSearch() {
 	$("li a[href='#gf-favorites']").on("click", function(e) {
 		videofavlist.handleChange();
 	})
-	
+
 	$('<div class="form-group form-inline">'+
 		'<div style="display: inline-block;float: right;" class="checkbox input-sm">'+
 			'<label for="gf-in-resultnum"> Show '+
@@ -246,6 +269,12 @@ function buildGifSearch() {
 		clearbtn.trigger("click");
 	}))
 	.append(createCheckbox("gf-c-autosend", "Instantly send GIFs from the menu when clicked", "gifAutoSend", onCheckboxChange))
+	.append(createCheckbox("gf-c-addtochathist", "Add GIF links to your chat history when automatically sent from this menu or when clicking the repost button", "gifAddToChatHist", onCheckboxChange))
+	.append($("<div/>").append($("<button/>", {text: "Import Favorites from script versions pre-0.0.30", class: "btn btn-primary"}).on("click", function() {
+		this.disabled = true;
+		mergeOldFavs();
+		this.disabled = false;
+	})))
 }
 
 export function createFavButton(gif_url) {
@@ -261,7 +290,7 @@ export function createFavButton(gif_url) {
 
 		const didAdd = onFavClick(this, gif_url, icon);
 
-		const favs = $(".tenor-chat-embed .fav-btn, .tenor-wrap .fav-btn");
+		const favs = $(".tenor-chat-embed .fav-btn, .gif-wrap .fav-btn");
 		for (let i = 0; i < favs.length; i++) {
 			const fav = $(favs[i]);
 			if (fav.data("url") == gif_url) {
@@ -284,7 +313,7 @@ function createRepostButton(gif_url) {
 
 		if (Date.now() - last_repost >= 2000) {
 			last_repost = Date.now();
-			sendMessage(gif_url);
+			sendMessage(gif_url, SETTINGS.gifAddToChatHist);
 		}
 
 	}).append($("<i/>", {
@@ -317,17 +346,19 @@ export function createImageEmbed(url, classes, showRepostBtn, onclick) {
 }
 
 function processMessage(message, data) {
-	let found_tenor = false;
+	//let found_tenor = false;
 	message.find("img").each(function() {
-		if (found_tenor) return;
-		const match = this.src.match(reg_tenor);
+		//if (found_tenor) return;
+    let match = this.src.match(reg_klipy);
+    if (!match) match = this.src.match(reg_tenor);
+
 		if (match) {
-			found_tenor = true;
+			//found_tenor = true;
 			if (SETTINGS.gifChatEnabled) {
 				const embed = createImageEmbed(this.src, "tenor-chat-embed", true);
 				$(this).replaceWith(embed);
 			} else {
-				$(this).replaceWith($("<code/>", {text: "tenor embed removed", title: this.src}));
+				$(this).replaceWith($("<code/>", {text: "gif removed", title: this.src}));
 			}
 		}
 	})

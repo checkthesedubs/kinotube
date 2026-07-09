@@ -1,4 +1,4 @@
-import { toggleFavoriteEmote } from "../utils";
+import { emoteIsFx, toggleFavoriteEmote } from "../utils";
 
 export class EmoteListOverride extends EmoteList {
 	constructor(selector, emoteClickCallback) {
@@ -23,8 +23,16 @@ EmoteListOverride.prototype.loadPage = function (page) {
         }
 
         (function (emote) {
+            const isFx = emoteIsFx(emote.name);
             var td = document.createElement("td");
             td.className = "emote-preview-container";
+            if (isFx) {
+                if (emote.name.charAt(0) == "o") {
+                    td.className += " emote-preview-ov";
+                } else {
+                    td.className += " emote-preview-fx";
+                }
+            }
 			td.title = emote.name;
 			td.onclick = function(e) {
 				if (e.shiftKey) {

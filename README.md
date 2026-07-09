@@ -1,7 +1,7 @@
 # KinoTube
 A **work-in-progress** script for CyTube channels. It was written from the ground up with a focus on performance and less bloat, meant to be a lightweight replacement for BillTube while still looking familiar.
 
-This script modifies the page layout and adds some features including custom themes, chat commands, Tenor search support, emote favoriting, and more.
+This script modifies the page layout and adds some features including custom themes, chat commands, GIF search support, emote favoriting, and more.
 
 [Click here to see the changelog.](./CHANGELOG.md)
 

@@ -24,7 +24,7 @@ function checkThisGet(data, element) {
 		emote = "fxRainbow " + emote;
 	}
 
-	sendMessage(data.username + ": " + emote);
+	sendMessage(data.username + ": " + emote, false);
 }
 
 function processMessage(message, data) {

@@ -1,6 +1,7 @@
 import { EventDataHook } from "../classes/EventDataHook";
 import { saveall } from "../storage";
-import { createCheckbox, createModal, createNavBarButton } from "./ui";
+import { safeHosts } from "../utils";
+import { createCheckbox, createModal, createNavBarButton, createTemporaryModal } from "./ui";
 
 export const SettingsMenuSaveHook = new EventDataHook(false);
 
@@ -23,6 +24,30 @@ function onModalSave() {
 
 body.append(createCheckbox("opt-autoembed", "Automatically accept custom embed warnings", "autoAcceptEmbed", onChange)
 	.append('<p class="text-info" style="font-size: .9em;">This will automatically accept any custom embedded content. Admins can set a trusted uploader with <code>window.OnlyAutoAcceptEmbedsFrom</code>.</p>'));
+
+body.append(createCheckbox("opt-sanitizepfp", "Only show profile pictures hosted on specific domains", "sanitizeProfileImg", onChange)
+	.append($('<p class="text-info" style="font-size: .9em;">If checked, only profile images from whitelisted hosts will be shown.</p>')
+		.append(' <span style="cursor: pointer" class="text-warning">Click here to see valid image hosts.</span>').on("click", function() {
+			let body = "";
+			for (var i in safeHosts) {
+				body += safeHosts[i] + "<br>";
+			}
+			body += "gstatic.com<br>";
+			body += "pbs.twimg.com<br>";
+			body += "wikia.nocookie.net";
+
+			return createTemporaryModal({
+				id: "validimghostmodal",
+				header: "Valid Profile Image Hosts",
+				body: body,
+				buttons: [],
+				backdrop: true,
+				centered: true,
+				nonfluid: true,
+				nofooter: true
+			})
+		}))
+	);
 
 const chat_body = $("<div/>");
 
@@ -74,6 +99,7 @@ createNavBarButton("Script Settings", "scriptSettingsButton", (t)=>{
 	t.preventDefault();
 	t.stopPropagation();
 	MODALS["scriptSettings"].modal();
+	$("#theme-success-text").text("");
 }).appendTo($("ul.nav.navbar-nav"));
 
 /*addTabsToModal("scriptsettings-modal",

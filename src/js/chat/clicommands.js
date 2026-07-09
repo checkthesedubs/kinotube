@@ -1,5 +1,20 @@
 import { ClientCommand } from "../classes/ClientCommand";
+//import { resizeChat } from "../ui/chat_resize";
 import { clamp } from "../utils";
+
+// /chatwidth
+/*new ClientCommand(
+	"/chatwidth",
+	"Adjusts the width of the chat area to a specific number of pixels.",
+	function (msg) {
+		let px = parseFloat(msg.split(" ")[0]);
+		if (isNaN(px)) {
+			return;
+		}
+    resizeChat(px);
+	},
+	null
+);*/
 
 // /volume
 new ClientCommand(
